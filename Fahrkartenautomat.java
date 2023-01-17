@@ -1,6 +1,8 @@
 package FahrkartenAutomat;
 import java.util.Scanner;
 
+// test commit 1
+
 class Fahrkartenautomat
 {
     public static void main(String[] args) {
@@ -31,15 +33,16 @@ class Fahrkartenautomat
         return (antwort == 1);
     }
 
-    // man muss 1-3 eingeben
-    private static boolean wahlGut(int wahl,int max) {
-        return 0 < wahl && wahl <= max;
+    // die Wahl kontrollieren
+    private static boolean wahlSchlecht (int wahl,int max) {
+        return wahl <= 0 ||
+               wahl > max;
     }
 
     // anzahlTickets muss 1-10 sein
-    private static boolean anzahlTicketsGut(int i) {
-        return i > 0 &&
-               i < 11;
+    private static boolean anzahlTicketsSchlecht (int i) {
+        return i <= 0 ||
+               i > 10;
     }
 
     // ticket waehlen und ticketAnzahl einlesen
@@ -102,11 +105,11 @@ class Fahrkartenautomat
                 }
                 System.out.printf(ihreWahl,bezahlenNummer);
                 wahl = tastatur.nextInt();
-                if (!wahlGut(wahl,bezahlenNummer)) {
+                if (wahlSchlecht(wahl,bezahlenNummer)) {
                     System.out.print(ungueltigeEingabe);
                     warte(2000);
                 }
-            } while (!wahlGut(wahl,bezahlenNummer));
+            } while (wahlSchlecht(wahl,bezahlenNummer));
 
             // endlose Schleife beenden
             if (wahl==bezahlenNummer) break;
@@ -115,11 +118,11 @@ class Fahrkartenautomat
             do {
                 System.out.print(anzahlTicketsEingeben);
                 anzahlTickets = tastatur.nextInt();
-                if (!anzahlTicketsGut(anzahlTickets)) {
+                if (anzahlTicketsSchlecht(anzahlTickets)) {
                     System.out.print(ungueltigeEingabe);
                     warte(2000);
                 }
-            } while (!anzahlTicketsGut(anzahlTickets));
+            } while (anzahlTicketsSchlecht(anzahlTickets));
 
             zwischenSumme += preise[wahl-1] * anzahlTickets;
             System.out.printf(zwischenSummenString,zwischenSumme);
